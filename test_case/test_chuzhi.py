@@ -27,27 +27,18 @@ class chuzhi(unittest.TestCase):
     def test_2chuzhi(self):
         u"""处置遍历模块"""
         driver=self.browser
+        driver.get("https://wj-01.zleida.com/bid/select")
+        title=driver.title
+        self.assertEqual(title,"【委案获取】-资产雷达")
         driver.get("https://wj-01.zleida.com/bid")
         title=driver.title
-        self.assertEqual(title,"【登录】-资产雷达")
-        #获取第一个框的委案编号进行搜索
-        #加断言，获取委案编号
-
-    def test_3chuzhimyAccount(self):
-        u"""处置个人中心模块"""
-        driver=self.browser
-        driver.get("https:///wj-01.zleida.com/my/myAccount")
-        driver.find_element_by_xpath("//div[3]//p//a").click()
-        title=driver.title
-        self.assertEqual(title,"【激活交易账户】-资产雷达")
+        driver.get("https://wj-01.zleida.com/bid")
+        self.assertEqual(title,"【委案列表】-资产雷达")
 
 
 
-    def  
-    def test_4quit(self):
-        u"""退出"""
-        driver=self.browser
-        driver.get("https://wj-01.zleida.com//login/logout")
+
+
 
 
 
