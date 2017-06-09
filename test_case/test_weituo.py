@@ -15,7 +15,7 @@ class weituo(unittest.TestCase):
          u"""登陆模块"""
          driver=self.browser
          driver.get('https://wj-01.zleida.com/login/login')
-         driver.find_element_by_id("name").send_keys("cz-tongji")
+         driver.find_element_by_id("name").send_keys("wt-tongji")
          driver.find_element_by_id('password').send_keys('123456')
          driver.find_element_by_xpath("//input[contains(concat(' ', @class, ' '), ' btn ')]").click()
          title=driver.title
