@@ -3,6 +3,7 @@ import time
 import unittest
 
 from util.browser import Browser
+from util.excel import receivables
 
 
 class chuzhi(unittest.TestCase):
@@ -53,10 +54,24 @@ class chuzhi(unittest.TestCase):
         self.assertEqual(text,'催收进度申请成功，请等待委托方确认！')
 
 
-    def test_4export(self):
-        u"""导出"""
+    def test_4import(self):
+        u"""导入催收记录"""
         driver=self.browser
-        driver.get()
+        driver.get('https://wj-01.zleida.com/bid?status=50')
+        time.sleep(2)
+        project_code=driver.find_element_by_xpath("//table[contains(concat(' ', @class, ' '), ' table ')]//tbody//tr[1]//td[1]").text
+
+        receivables(project_code)
+        driver.get('https://wj-01.zleida.com/receivable/upload')
+        driver.find_element_by_name('file').send_keys(r"E:\a_测试文件\催收记录导入模板程序.xls")
+        driver.find_element_by_xpath("//input[contains(concat(' ', @class, ' '), ' jm-btn-default ')]").click()
+
+        time.sleep(2)
+        text=driver.find_element_by_xpath("//div[contains(concat(' ', @class, ' '), ' panel-body ')]//div[1]").text
+        self.assertEqual(text,'催收记录导入模板程序.xls导入成功!')
+
+
+
 
 
 

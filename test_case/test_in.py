@@ -3,6 +3,7 @@
 import unittest
 import time
 from util.browser import Browser
+from util.excel import projects
 
 
 class intest(unittest.TestCase):
@@ -13,6 +14,8 @@ class intest(unittest.TestCase):
         # 定义数组，脚本运行错误记录到这个数组里
         self.accept_next_alert = True
         # 表示接受警告
+
+
 
     def test_1inlogin(self):
         u"""in登录"""
@@ -78,11 +81,13 @@ class intest(unittest.TestCase):
     def test_5upweian(self):
         u"""委案上传"""
         driver = self.browser
+        projects()
         driver.get('https://ij-01.zleida.com/manage/upload')
         time.sleep(2)
         driver.find_element_by_name('companyName').send_keys('统计测试')
-        driver.find_element_by_name('file').send_keys(
-            "E:\\a_测试文件\\委案\\一条.xlsx")
+
+        time.sleep(2)
+        driver.find_element_by_name('file').send_keys(r"E:\a_测试文件\委案导入模板程序.xls")
         driver.find_element_by_xpath(
             "//input[contains(concat(' ', @class, ' '), ' btn-default ')]").click()
         time.sleep(3)
