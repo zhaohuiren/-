@@ -17,7 +17,3 @@ def projects():
     ws = wb.get_sheet(0)
     ws.write(2,6,random.randint(0,100))
     wb.save(r'E:\a_测试文件\委案导入模板程序.xls')
-
-
-projects()
-
