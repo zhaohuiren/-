@@ -54,7 +54,7 @@ class chuzhi(unittest.TestCase):
         self.assertEqual(text,'催收进度申请成功，请等待委托方确认！')
 
 
-    def test_4import(self):
+    def test_5import(self):
         u"""导入催收记录"""
         driver=self.browser
         driver.get('https://wj-01.zleida.com/bid?status=50')
@@ -69,6 +69,35 @@ class chuzhi(unittest.TestCase):
         time.sleep(2)
         text=driver.find_element_by_xpath("//div[contains(concat(' ', @class, ' '), ' panel-body ')]//div[1]").text
         self.assertEqual(text,'催收记录导入模板程序.xls导入成功!')
+        time.sleep(10)
+
+
+    def test_6abandonCollect(self):
+        u"""提前退案"""
+        driver=self.browser
+
+        driver.get('https://wj-01.zleida.com/bid?status=50')
+        time.sleep(2)
+        driver.find_element_by_xpath("//tbody//tr[1]//th").click()
+        driver.find_element_by_id('abandonCollect').click()
+        driver.switch_to_alert().accept()
+        time.sleep(1)
+        message=driver.switch_to_alert().text
+        self.assertEqual(message,'提前退案成功!')
+        driver.switch_to_alert().accept()
+
+
+    def test_7export(self):
+        u"""导出"""
+        driver=self.browser
+        driver.get('https://wj-01.zleida.com/bid?status=50')
+        driver.find_element_by_xpath("//div[contains(concat(' ', @class, ' '), ' btn-c-r ')]//button//span[1]").click()
+        driver.find_element_by_xpath("//div[contains(concat(' ', @class, ' '), ' btn-c-r ')]//ul//li[3]//a").click()
+        js=u"$('#password').val('123456')"
+        driver.execute_script(js)
+        js=u"$('.testPassword').click()"
+        driver.execute_script(js)
+        time.sleep(5)
 
 
 
@@ -77,7 +106,10 @@ class chuzhi(unittest.TestCase):
 
 
 
-    def test_4quit(self):
+
+
+
+    def test_8quit(self):
         u"""退出"""
         driver=self.browser
         driver.get("https://wj-01.zleida.com//login/logout")
