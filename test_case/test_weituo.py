@@ -2,6 +2,7 @@
 import  time
 import  unittest
 from util.browser import Browser
+from util.excel import projects
 
 class weituo(unittest.TestCase):
     def setUp(self):
@@ -21,16 +22,20 @@ class weituo(unittest.TestCase):
          title=driver.title
          self.assertEqual(title,"【工作平台】-资产雷达")
 
-    def test_2yemian(self):
-        u"""页面遍历"""
+
+    def test_2upload(self):
+        u"""发布委案"""
         driver=self.browser
         driver.get('https://wj-01.zleida.com/project/create')
         time.sleep(1)
-        title=driver.title
-        self.assertEqual(title,"【发布委案】-资产雷达")
-        driver.get('https://wj-01.zleida.com/project/index')
-       # title=driver.title
-        #self.assertEqual(title,"")
+        projects()
+        driver.find_element_by_id('file').send_keys(r"E:\a_测试文件\委案导入模板程序.xls")
+        driver.find_element_by_id('agreedUpload').click()
+        time.sleep(2)
+        text=driver.find_element_by_xpath("//div[contains(concat(' ', @class, ' '), ' panel-body ')]//div[1]").text
+        self.assertEqual(text,'导入信贷委案成功!')
+
+
 
 
 
