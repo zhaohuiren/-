@@ -15,5 +15,7 @@ def projects():
     rs=rb.sheet_by_index(0)
     wb=copy(rb)
     ws = wb.get_sheet(0)
-    ws.write(2,6,random.randint(0,100))
+    ws.write(2,6,random.randint(10000,200000))
     wb.save(r'E:\a_测试文件\委案导入模板程序.xls')
+
+projects()

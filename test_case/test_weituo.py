@@ -35,6 +35,41 @@ class weituo(unittest.TestCase):
         text=driver.find_element_by_xpath("//div[contains(concat(' ', @class, ' '), ' panel-body ')]//div[1]").text
         self.assertEqual(text,'导入信贷委案成功!')
 
+    def test_3check(self):
+        u"""确认催收进度"""
+        driver=self.browser
+        driver.get('https://wj-01.zleida.com/project/index?status=60')
+        driver.find_element_by_xpath("//table[contains(concat(' ', @class, ' '), ' table ')]//tbody//tr[1]//td[3]").click()
+        time.sleep(5)
+        #取到所有页面的曲柄
+        all_handles=driver.window_handles
+        #取到当前页面的曲柄
+        now_handles=driver.current_window_handle
+        # 循环 判断窗口是否为当前窗口
+        for handle in all_handles:
+            if handle!=now_handles:
+        #切换到新窗口
+                driver.switch_to_window(handle)
+        #取到url
+        url=driver.current_url
+        #用=截取code
+        allurl=url.split('=')
+        code=allurl[1]
+        print(code)
+        #拼接URL
+        c="https://wj-01.zleida.com/settlement/settlementOwner?id="+code
+        print(c)
+        driver.get(c)
+        driver.find_element_by_id('yesPass').click()
+        time.sleep(2)
+        driver.find_element_by_id('receivedAmount').send_keys('100')
+        driver.find_element_by_id('yesCommission').click()
+        driver.find_element_by_id('submitBtn').click()
+        time.sleep(2)
+        driver.find_element_by_xpath("//button[contains(concat(' ', @class, ' '), ' yes ')]").click()
+        time.sleep(1)
+        text=driver.find_element_by_xpath("//div[contains(concat(' ', @class, ' '), ' alert-success ')]//p").text
+        self.assertEqual(text,'催收进度审核操作成功！')
 
 
 

@@ -12,6 +12,7 @@ from selenium import webdriver
 from util.HTMLTestRunner import HTMLTestRunner
 from util.browser import Browser
 
+
 # 测试前打开浏览器
 Browser.BROWSER = webdriver.Chrome()
 Browser.BROWSER.maximize_window()
@@ -19,7 +20,8 @@ Browser.BROWSER.maximize_window()
 # 创建测试套件：discover()将所有test*.py加入套件
 test_dir = os.getcwd()
 testsuite = unittest.defaultTestLoader.discover(test_dir, pattern='test*.py', top_level_dir=None)
-
+#初始化数据库
+#mysql()
 # 执行测试套件，并使用HTMLTestRunner生成测试报告
 ISOTIMEFORMAT = '%Y-%m-%d-%H-%M-%S'
 time_str = time.strftime(ISOTIMEFORMAT, time.localtime(time.time()))

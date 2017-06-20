@@ -102,12 +102,14 @@ class intest(unittest.TestCase):
         u"""信贷委案操作"""
         driver = self.browser
         driver.get("https://ij-01.zleida.com/project/manage")
-        driver.find_element_by_xpath("//input[@id='all-select']").click()
-        driver.find_element_by_name("collectDays").send_keys('1')
+        time.sleep(4)
+        driver.find_element_by_id("all-select").click()
+        driver.find_element_by_name("allDay").click()
         driver.find_element_by_name("companyName").send_keys('统计处置测试')
         driver.find_element_by_id('btn-pass').click()
-        time.sleep(2)
+        time.sleep(5)
         message = driver.switch_to_alert().text
+
         self.assertEqual(message, '操作成功')
         driver.switch_to_alert().accept()
 
